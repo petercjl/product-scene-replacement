@@ -1,0 +1,40 @@
+{
+  "schema": "portable-skill-adapter",
+  "platform": "generic",
+  "mappings": [
+    {
+      "capability_id": "asset.guide",
+      "status": "implemented",
+      "features": [
+        "verify-file-hashes",
+        "verify-png-dimensions"
+      ],
+      "implementation": {
+        "type": "node-script",
+        "path": "scripts/asset-guide.mjs",
+        "command": "check",
+        "runtime": "Node.js 22+"
+      }
+    },
+    {
+      "capability_id": "media.image.edit",
+      "status": "implemented",
+      "features": [
+        "ordered-references",
+        "one-image",
+        "local-artifact",
+        "nano-banana-pro"
+      ],
+      "implementation": {
+        "type": "cli-bundled-skill",
+        "discovery": "Resolve the canonical companion Skill via sealseek-media skill source --json. Load its current instructions and use the bound launcher to inspect live capabilities and run a single-image reference request.",
+        "on_missing": "CAPABILITY_UNAVAILABLE",
+        "on_unsupported": "FEATURE_UNSUPPORTED",
+        "output": "Return a local image and the saved task receipt.",
+        "package": "@petercjl/sealseek-media-cli",
+        "skill": "sealseek-media",
+        "model": "nano-banana-pro"
+      }
+    }
+  ]
+}

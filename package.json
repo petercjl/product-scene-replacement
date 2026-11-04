@@ -1,0 +1,38 @@
+{
+  "name": "@petercjl/product-scene-replacement",
+  "version": "0.0.0",
+  "description": "Replace products in existing scenes using selected asset references.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petercjl/product-scene-replacement.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "skills",
+    "INSTALL.md",
+    "UPDATE.md",
+    "scripts/verify-package.mjs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "agentPackage": {
+    "kind": "application-skill",
+    "skills": [
+      {
+        "name": "product-scene-replacement",
+        "path": "skills/product-scene-replacement"
+      }
+    ],
+    "installation": "host-managed-physical-copy",
+    "installGuide": "INSTALL.md",
+    "updateGuide": "UPDATE.md"
+  },
+  "scripts": {
+    "check": "node scripts/verify-package.mjs",
+    "prepack": "node scripts/verify-package.mjs"
+  }
+}

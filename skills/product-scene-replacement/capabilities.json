@@ -1,0 +1,56 @@
+{
+  "schema": "portable-skill-capabilities",
+  "schema_version": "1.0.0",
+  "skill": "product-scene-replacement",
+  "target_platforms": [
+    "generic"
+  ],
+  "capabilities": [
+    {
+      "id": "asset.guide",
+      "purpose": "Validate the portable asset handoff",
+      "required": true,
+      "required_features": [
+        "verify-file-hashes",
+        "verify-png-dimensions"
+      ],
+      "input_fields": [
+        "guide"
+      ],
+      "output_fields": [
+        "verified-assets"
+      ],
+      "side_effects": {
+        "external_mutation": false,
+        "may_cost_money": false,
+        "authorization": "Local read access"
+      }
+    },
+    {
+      "id": "media.image.edit",
+      "purpose": "Produce one reference-conditioned image",
+      "required": true,
+      "required_features": [
+        "ordered-references",
+        "one-image",
+        "local-artifact",
+        "nano-banana-pro"
+      ],
+      "input_fields": [
+        "references",
+        "prompt",
+        "aspect-ratio",
+        "model"
+      ],
+      "output_fields": [
+        "artifact",
+        "receipt"
+      ],
+      "side_effects": {
+        "external_mutation": true,
+        "may_cost_money": true,
+        "authorization": "Approved inputs, provider and generation budget"
+      }
+    }
+  ]
+}

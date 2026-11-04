@@ -1,0 +1,3 @@
+interface:
+  display_name: "场景产品替换"
+  short_description: "Select product references and edit scenes"
