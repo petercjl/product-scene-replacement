@@ -17,17 +17,33 @@ function line(value, label) {
   return value;
 }
 
+function ratioParts(ratio) {
+  requireValue(typeof ratio === 'string' && /^[1-9]\d{0,9}:[1-9]\d{0,9}$/u.test(ratio), '比例无效');
+  return ratio.split(':').map(Number);
+}
+
+function reducedRatio(width, height) {
+  requireValue(width > 0 && height > 0, '图片尺寸无效');
+  let divisor = width;
+  let remainder = height;
+  while (remainder) {
+    [divisor, remainder] = [remainder, divisor % remainder];
+  }
+  return `${width / divisor}:${height / divisor}`;
+}
+
 function parseGuide(source) {
   const [header, ...blocks] = source.replace(/\r\n/g, '\n').trimEnd().split('\n\n');
-  const match = /^格式版本：1\n产品：(.+)\n资产版本：(.+)\n比例：(\d+:\d+)$/u.exec(header);
+  const match = /^格式版本：([12])\n产品：(.+)\n资产版本：(.+)(?:\n比例：(\d+:\d+))?$/u.exec(header);
   requireValue(match, '说明头部格式不符');
-  const [, product, version, ratio] = match;
+  const [, formatVersion, product, version, ratio] = match;
+  requireValue(formatVersion === '1' ? Boolean(ratio) : !ratio, '说明版本与比例字段不符');
   const images = blocks.map(block => {
     const [title, ...fields] = block.split('\n');
     const heading = /^\[(A\d{2,})\] (.+)$/u.exec(title);
     requireValue(heading, `图编号格式无效：${title}`);
     const [, id, file] = heading;
-    const entries = Object.entries(labels);
+    const entries = Object.entries(formatVersion === '2' ? { ratio: '比例', ...labels } : labels);
     requireValue(fields.length === entries.length, `图片说明字段数不符：${id}`);
     return { id, file, ...Object.fromEntries(entries.map(([key, label], index) => {
       const prefix = label + '：';
@@ -41,9 +57,8 @@ function parseGuide(source) {
 async function verify(plan, root, checking) {
   const product = line(plan.product, '产品');
   const version = line(plan.version, '资产版本');
-  const ratio = plan.ratio ?? '9:16';
-  requireValue(typeof ratio === 'string' && /^[1-9]\d{0,3}:[1-9]\d{0,3}$/u.test(ratio), '比例无效');
-  const [rw, rh] = ratio.split(':').map(Number);
+  const defaultRatio = plan.ratio;
+  if (defaultRatio !== undefined) ratioParts(defaultRatio);
   requireValue(Array.isArray(plan.images) && plan.images.some(image => image?.role === 'overall') &&
     plan.images.some(image => image?.role === 'scale'), '完整图组需要全貌和尺度图');
   const ids = new Set();
@@ -68,20 +83,22 @@ async function verify(plan, root, checking) {
       bytes.subarray(-12).equals(Buffer.from('0000000049454e44ae426082', 'hex')), `PNG 文件头或结束块无效：${file}`);
     const width = bytes.readUInt32BE(16);
     const height = bytes.readUInt32BE(20);
-    requireValue(width > 0 && height > 0 && width * rh === height * rw, `图片比例不符：${file} ${width}x${height}`);
+    const ratio = image.ratio ?? defaultRatio ?? reducedRatio(width, height);
+    const [rw, rh] = ratioParts(ratio);
+    requireValue(width > 0 && height > 0 && BigInt(width) * BigInt(rh) === BigInt(height) * BigInt(rw), `图片比例不符：${file} ${width}x${height}`);
     const size = `${width}x${height}`;
     const hash = createHash('sha256').update(bytes).digest('hex');
     requireValue(!checking || (size === image.size && hash === image.hash), `尺寸或哈希不符：${file}`);
-    images.push({ id, file, path, role, use, when, limits, size, hash });
+    images.push({ id, file, path, ratio, role, use, when, limits, size, hash });
   }
-  return { product, version, ratio, images };
+  return { product, version, ratio: images.every(image => image.ratio === images[0].ratio) ? images[0].ratio : null, images };
 }
 
-function formatGuide({ product, version, ratio, images }) {
-  const header = `格式版本：1\n产品：${product}\n资产版本：${version}\n比例：${ratio}`;
+function formatGuide({ product, version, images }) {
+  const header = `格式版本：2\n产品：${product}\n资产版本：${version}`;
   const blocks = images.map(image => [
     `[${image.id}] ${image.file}`,
-    ...Object.entries(labels).map(([key, label]) => `${label}：${image[key]}`),
+    ...Object.entries({ ratio: '比例', ...labels }).map(([key, label]) => `${label}：${image[key]}`),
   ].join('\n'));
   return [header, ...blocks].join('\n\n') + '\n';
 }

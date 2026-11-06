@@ -33,6 +33,7 @@
   },
   "scripts": {
     "check": "node scripts/verify-package.mjs",
-    "prepack": "node scripts/verify-package.mjs"
+    "prepack": "node scripts/verify-package.mjs",
+    "test": "node --test test/*.test.mjs"
   }
 }
