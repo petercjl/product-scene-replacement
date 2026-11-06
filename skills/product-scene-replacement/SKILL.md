@@ -3,7 +3,7 @@ name: product-scene-replacement
 description: 从已有产品参考图组及资产说明中按目标场景选择参考，在一张或明确批量图片中替换产品，逐轮验收产品一致性和场景保持。
 metadata:
   package: "@petercjl/product-scene-replacement"
-  version: "0.1.1"
+  version: "0.1.2"
 ---
 
 # 场景产品替换
