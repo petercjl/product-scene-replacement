@@ -3,6 +3,7 @@ on: [push, workflow_call, workflow_dispatch]
 jobs:
   qa:
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
