@@ -1,0 +1,514 @@
+{
+  "ok": true,
+  "schemaVersion": 1,
+  "package": "@petercjl/product-scene-replacement",
+  "version": "0.1.1",
+  "skills": [
+    "product-scene-replacement"
+  ],
+  "agentEligibility": "capability-based",
+  "commandContracts": {
+    "version": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "help": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "capabilities": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "doctor": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "install-notice": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "prepare": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--state-dir": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "local-write"
+    },
+    "skill source": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--name": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "skill status": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--name": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "skill install": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--name": {
+          "type": "string"
+        },
+        "--owner": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "local-write"
+    },
+    "skill update": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--name": {
+          "type": "string"
+        },
+        "--owner": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "local-write"
+    },
+    "update check": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--state-dir": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "update status": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--state-dir": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "update policy": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--state-dir": {
+          "type": "string"
+        },
+        "--mode": {
+          "type": "string"
+        },
+        "--yes": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "local-write",
+      "writeCondition": "Only an explicit --mode with --yes changes policy."
+    },
+    "update install": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--yes": {
+          "type": "boolean"
+        },
+        "--state-dir": {
+          "type": "string"
+        },
+        "--package-file": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "package-and-skill-update"
+    },
+    "update operation": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "update resume": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--yes": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "local-write"
+    },
+    "update rollback": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--agent": {
+          "type": "string"
+        },
+        "--target": {
+          "type": "string"
+        },
+        "--yes": {
+          "type": "boolean"
+        }
+      },
+      "sideEffects": "local-write"
+    },
+    "asset check": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--guide": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "none"
+    },
+    "asset write": {
+      "options": {
+        "--json": {
+          "type": "boolean"
+        },
+        "--help": {
+          "type": "boolean"
+        },
+        "--directory": {
+          "type": "string"
+        },
+        "--plan": {
+          "type": "string"
+        }
+      },
+      "sideEffects": "local-write"
+    }
+  },
+  "maintenanceContract": {
+    "schemaVersion": 1,
+    "source": {
+      "name": {
+        "field": "name",
+        "type": "string"
+      },
+      "package": {
+        "field": "package",
+        "type": "string"
+      },
+      "version": {
+        "field": "version",
+        "type": "string"
+      },
+      "path": {
+        "field": "path",
+        "type": "string"
+      }
+    },
+    "status": {
+      "name": {
+        "field": "name",
+        "type": "string"
+      },
+      "package": {
+        "field": "package",
+        "type": "string"
+      },
+      "version": {
+        "field": "version",
+        "type": "string"
+      },
+      "target": {
+        "field": "target",
+        "type": "string"
+      },
+      "installed": {
+        "field": "installed",
+        "type": "boolean"
+      },
+      "managed": {
+        "field": "managed",
+        "type": "boolean"
+      },
+      "current": {
+        "field": "current",
+        "type": "boolean"
+      },
+      "edited": {
+        "field": "edited",
+        "type": "string[]"
+      },
+      "verification": {
+        "field": "verification",
+        "type": "object"
+      },
+      "recovery": {
+        "field": "recovery",
+        "type": "object"
+      }
+    },
+    "targetOptions": {
+      "--target": {
+        "kind": "skill-directory"
+      }
+    },
+    "agentEligibility": "valid-name-with-generic-fallback",
+    "hostDiscoveryAuthority": "host"
+  },
+  "discoveryContract": {
+    "schemaVersion": 1,
+    "entryPoints": [
+      {
+        "argv": [
+          "capabilities",
+          "--json"
+        ],
+        "result": "manifest"
+      }
+    ],
+    "commandsField": "commandContracts",
+    "version": {
+      "command": "version",
+      "argv": [
+        "version",
+        "--json"
+      ],
+      "fields": {
+        "package": {
+          "field": "package",
+          "type": "string"
+        },
+        "version": {
+          "field": "version",
+          "type": "string"
+        }
+      }
+    },
+    "skillCollection": {
+      "namesField": "skills",
+      "default": "product-scene-replacement",
+      "selector": {
+        "option": "--name",
+        "type": "string"
+      },
+      "enumeration": {
+        "argv": [
+          "skill",
+          "source",
+          "--json"
+        ],
+        "itemsField": "sources",
+        "completeField": "complete"
+      },
+      "namedSource": [
+        "skill",
+        "source",
+        "--name",
+        "{skill}",
+        "--json"
+      ]
+    }
+  },
+  "installationLifecycle": {
+    "skillRequired": true,
+    "updateRequiresSkillSync": true,
+    "required_components": [
+      "cli",
+      "skill"
+    ],
+    "installGuide": "INSTALL.md",
+    "updateGuide": "UPDATE.md",
+    "source": [
+      "skill",
+      "source",
+      "--json"
+    ],
+    "install": "skill install --agent {agent} --target {target} --json",
+    "update": "update install --agent {agent} --target {target} --yes --json",
+    "verification": "skill status --agent {agent} --target {target} --json",
+    "hostDiscoveryAuthority": "host",
+    "physicalIsolation": true,
+    "runtimeEntry": "{target}/.runtime/bin/product-scene-replacement.mjs",
+    "agentNeutral": true,
+    "targetRequired": true,
+    "hostRegistrationRequired": true,
+    "installationMode": "copy",
+    "sharedLinksAllowed": false,
+    "isolatedRuntimeRequired": true
+  },
+  "automaticUpdates": {
+    "trigger": "ordinary task entry prepare",
+    "channel": "latest",
+    "ttlHours": 24,
+    "timeoutMs": 1500,
+    "optOut": "AGENT_PACKAGE_UPDATE_CHECK=0",
+    "automaticInstall": false,
+    "policy": "advisory-only; explicit install authorization required",
+    "enabledByDefault": true,
+    "intervalHours": 24,
+    "configuration": "update status and update policy --mode off|notify --yes",
+    "disable": "AGENT_PACKAGE_UPDATE_CHECK=0",
+    "recovery": "offline backoff keeps installed state; malformed cache is preserved",
+    "defaultMode": "notify"
+  },
+  "historicalUpdater": {
+    "status": "first-management-release",
+    "previousPublishedVersions": [
+      "0.1.0",
+      "0.1.1"
+    ],
+    "previousUpdater": "absent; previous packages were binless and host-copied",
+    "migration": "Existing unowned physical copies require a verified backup before managed installation."
+  },
+  "requiredCapabilities": [
+    "filesystem.read-write",
+    "command.execute",
+    "media.image.inspect"
+  ],
+  "runtime": {
+    "node": ">=22",
+    "dependencies": []
+  },
+  "adapters": {
+    "generic": {
+      "status": "implemented",
+      "destination": "caller-resolved explicit exact directory"
+    }
+  }
+}

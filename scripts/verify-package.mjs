@@ -22,3 +22,10 @@ function verifyTree(directory) {
 verifyTree(skill.path);
 const result = spawnSync(process.execPath, ['--check', join(skill.path, 'scripts', 'asset-guide.mjs')], {stdio:'inherit'});
 assert.equal(result.status, 0);
+
+const identityCheck=spawnSync(process.execPath,['scripts/sync-version.mjs'],{stdio:'inherit'});
+assert.equal(identityCheck.status,0);
+assert.ok(pkg.bin[skill.name]);
+const metadata=spawnSync(process.execPath,[pkg.bin[skill.name],'version','--json'],{encoding:'utf8'});
+assert.equal(metadata.status,0);
+assert.equal(JSON.parse(metadata.stdout).version,pkg.version);

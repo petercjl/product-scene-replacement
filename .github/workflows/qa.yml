@@ -1,0 +1,19 @@
+name: Package QA
+on: [push, workflow_call, workflow_dispatch]
+jobs:
+  qa:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      AGENT_PACKAGE_UPDATE_CHECK: '0'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.15.0'
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm pack --dry-run --ignore-scripts

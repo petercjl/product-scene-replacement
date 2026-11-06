@@ -14,7 +14,13 @@
     "skills",
     "INSTALL.md",
     "UPDATE.md",
-    "scripts/verify-package.mjs"
+    "scripts/verify-package.mjs",
+    "bin",
+    "lib",
+    "capabilities.json",
+    "skill-integrity.json",
+    "THIRD_PARTY_NOTICES.md",
+    "scripts/sync-version.mjs"
   ],
   "publishConfig": {
     "access": "public"
@@ -27,13 +33,19 @@
         "path": "skills/product-scene-replacement"
       }
     ],
-    "installation": "host-managed-physical-copy",
+    "installation": "managed-physical-copy",
     "installGuide": "INSTALL.md",
     "updateGuide": "UPDATE.md"
   },
   "scripts": {
     "check": "node scripts/verify-package.mjs",
     "prepack": "node scripts/verify-package.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "version": "node scripts/sync-version.mjs --write",
+    "postinstall": "node bin/product-scene-replacement.mjs install-notice"
+  },
+  "type": "module",
+  "bin": {
+    "product-scene-replacement": "bin/product-scene-replacement.mjs"
   }
 }

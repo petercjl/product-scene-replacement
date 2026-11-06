@@ -52,5 +52,9 @@
         "authorization": "Approved inputs, provider and generation budget"
       }
     }
-  ]
+  ],
+  "host_resolution": {
+    "fallback_adapter": "generic",
+    "destination": "caller-resolved explicit exact directory"
+  }
 }
